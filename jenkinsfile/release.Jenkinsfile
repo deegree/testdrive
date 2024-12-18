@@ -77,7 +77,7 @@ pipeline {
 //                            sh 'eval "ssh-agent -s"'
 //                            sh 'ssh -T -ai $SSH_KEY git@github.com'
 //                        }
-                        sh 'mvn -Dresume=false -DreleaseVersion=${REL_VERSION} -DdevelopmentVersion=${DEV_VERSION} -Darguments="-repo.username=${USERNAME_VAR} -Drepo.password=${PASSWORD_VAR}" -DdeployAtEnd=true -Dgoals=deploy release:prepare release:perform'
+                        sh 'mvn -Dresume=false -DreleaseVersion=${REL_VERSION} -DdevelopmentVersion=${DEV_VERSION} -Darguments="-Drepo.username=${USERNAME_VAR} -Drepo.password=${PASSWORD_VAR}" -DdeployAtEnd=true -Dgoals=deploy release:prepare release:perform'
                       }
                     }
                 }
