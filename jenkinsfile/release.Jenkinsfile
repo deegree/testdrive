@@ -71,7 +71,9 @@ pipeline {
                 withMaven(mavenSettingsConfig: 'mvn-empty-settings', options: [junitPublisher(healthScaleFactor: 1.0)], publisherStrategy: 'EXPLICIT') {
                     withCredentials([sshUserPrivateKey(credentialsId:'jenkins-testdrive-ssh-key', keyFileVariable: 'SSH_KEY')]) {
                         sh 'GIT_SSH_COMMAND="ssh -i $SSH_KEY"'
-                        sh 'ssh -T -ai $SSH_KEY git@github.com'
+                        catchError {
+                            sh 'ssh -T -ai $SSH_KEY git@github.com'
+                        }
                         sh 'mvn -Dresume=false -DreleaseVersion=${REL_VERSION} -DdevelopmentVersion=${DEV_VERSION} -DdeployAtEnd=true -Dgoals=deploy release:prepare release:perform'
                     }
                 }
