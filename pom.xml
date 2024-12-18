@@ -27,11 +27,11 @@
   <distributionManagement>
     <repository>
       <id>testdrive-releases</id>
-      <url>https://repo.deegree.org/content/repositories/testdrive-releases/</url>
+      <url>https://repo.deegree.org/repository/testdrive-releases/</url>
     </repository>
     <snapshotRepository>
       <id>testdrive-snapshots</id>
-      <url>https://repo.deegree.org/content/repositories/testdrive-snapshots/</url>
+      <url>https://repo.deegree.org/repository/testdrive-snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 
