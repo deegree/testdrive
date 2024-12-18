@@ -11,8 +11,8 @@ pipeline {
         MAVEN_OPTS='-Djava.awt.headless=true'
     }
     parameters {
-          string name: 'REL_VERSION', defaultValue: "3.5.x", description: 'Next release version'
-          string name: 'DEV_VERSION', defaultValue: "3.5.x-SNAPSHOT", description: 'Next snapshot version'
+          string name: 'REL_VERSION', defaultValue: "1.0.x", description: 'Next release version'
+          string name: 'DEV_VERSION', defaultValue: "1.0.x-SNAPSHOT", description: 'Next snapshot version'
           booleanParam name: 'PERFORM_RELEASE', defaultValue: false, description: 'Perform release build (on main branch only)'
     }
     stages {
@@ -69,9 +69,8 @@ pipeline {
             steps {
                 echo 'Prepare release version ${REL_VERSION}'
                 withMaven(mavenSettingsConfig: 'mvn-empty-settings', options: [junitPublisher(healthScaleFactor: 1.0)], publisherStrategy: 'EXPLICIT') {
-                    withCredentials([
-                              usernamePassword(credentialsId:'git', passwordVariable: 'Password', usernameVariable: 'Username')
-                              ]) {
+                    withCredentials([sshUserPrivateKey(credentialsId:'jenkins-testdrive-ssh-key', keyFileVariable: 'SSH_KEY')]) {
+                        sh 'GIT_SSH_COMMAND="ssh -i $SSH_KEY"'
                         sh 'mvn -Dresume=false -DreleaseVersion=${REL_VERSION} -DdevelopmentVersion=${DEV_VERSION} -DdeployAtEnd=true -Dgoals=deploy release:prepare release:perform'
                     }
                 }
