@@ -5,7 +5,7 @@
 
   <groupId>org.deegree</groupId>
   <artifactId>testdrive</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
 
   <name>testdrive</name>
   <description>testdrive to verify release process with different CI settings</description>
@@ -21,7 +21,7 @@
     <connection>scm:git:git@github.com:deegree/testdrive.git</connection>
     <developerConnection>scm:git:git@github.com:deegree/testdrive.git</developerConnection>
     <url>https://github.com/deegree/testdrive</url>
-    <tag>testdrive-1.0.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <distributionManagement>
