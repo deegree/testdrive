@@ -5,7 +5,7 @@
 
   <groupId>org.deegree</groupId>
   <artifactId>testdrive</artifactId>
-  <version>1.0.6SNAPSHOT</version>
+  <version>1.0.6-SNAPSHOT</version>
 
   <name>testdrive</name>
   <description>testdrive to verify release process with different CI settings</description>
