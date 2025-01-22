@@ -54,8 +54,7 @@ pipeline {
             }
             post {
                 always {
-                    recordIssues enabledForFailure: true, tools: [mavenConsole(), java(), javaDoc()]
-                    recordIssues enabledForFailure: true, tool: spotBugs()
+                    recordIssues enabledForFailure: true, tools: [mavenConsole(), java(), javaDoc(), spotBugs()]
                 }
             }
         }
@@ -68,8 +67,8 @@ pipeline {
             }
             steps {
                 echo 'Prepare release version ${REL_VERSION}'
-                withMaven(mavenSettingsConfig: 'mvn-server-settings', options: [junitPublisher(healthScaleFactor: 1.0)], publisherStrategy: 'EXPLICIT') {
-                      sshagent(credentials: ['jenkins-testdrive-ssh-key']) {
+                sshagent(credentials: ['jenkins-testdrive-ssh-key']) {
+                    withMaven(mavenSettingsConfig: 'mvn-server-settings', options: [junitPublisher(healthScaleFactor: 1.0)], publisherStrategy: 'EXPLICIT') {
                         withCredentials([usernamePassword(credentialsId:'nexus-deploy', passwordVariable: 'PASSWORD_VAR', usernameVariable: 'USERNAME_VAR')]) {
 //                        sh 'GIT_SSH_COMMAND="ssh -i $SSH_KEY"'
 //                        sh 'git -c core.sshCommand="ssh -i $SSH_KEY" submodule update --init'
